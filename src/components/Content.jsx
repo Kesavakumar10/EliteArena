@@ -4,8 +4,8 @@ import HomePage from "./Homepage";
 import ProductGrid from "./ProductGrid";
 import CartPage from "./CartPage";
 import Contact from "./Contact";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Content() {
   const [page, setPage] = React.useState("Home");

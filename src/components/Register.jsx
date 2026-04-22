@@ -16,7 +16,7 @@ const submit = async (e) => {
 e.preventDefault();
 setErr(null);
 try{
-const res = await API.post('/auth/register', form);
+await fetch('/api/register', options);
 alert('Registered! Please login.');
 navigate('/login');
 }catch(e){
