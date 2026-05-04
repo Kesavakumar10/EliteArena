@@ -11,47 +11,41 @@ export default function Contact() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        p: 3
+        px: { xs: 1.5, sm: 3 },
+        py: 5,
       }}
     >
       <Paper
-        elevation={4}
+        elevation={0}
         sx={{
-          maxWidth: 500,
+          maxWidth: 560,
           width: "100%",
-          p: 4,
-          borderRadius: 3,
-          textAlign: "center"
+          p: { xs: 2.5, sm: 4 },
+          borderRadius: 2,
+          textAlign: "center",
+          border: "1px solid var(--brand-line)",
+          boxShadow: "0 12px 30px rgba(15,23,42,0.08)",
         }}
       >
-        <Typography
-          variant="h4"
-          fontWeight="bold"
-          gutterBottom
-        >
+        <Typography variant="h4" fontWeight="bold" gutterBottom sx={{ fontSize: { xs: "1.75rem", md: "2.125rem" } }}>
           Contact Us
         </Typography>
 
-        <Typography
-          variant="body1"
-          color="text.secondary"
-          sx={{ mb: 3 }}
-        >
-          Need help or have a question?  
-          We’d love to hear from you.
+        <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+          Need help or have a question? We'd love to hear from you.
         </Typography>
 
         <Stack spacing={2}>
           <Typography fontSize="16px">
-            📧 <strong>Email:</strong> support@gamingvault.com
+            <strong>Email:</strong> support@elitearena.com
           </Typography>
 
           <Typography fontSize="16px">
-            📞 <strong>Phone:</strong> +91 98765 43210
+            <strong>Phone:</strong> +91 98765 43210
           </Typography>
 
           <Typography fontSize="16px">
-            📍 <strong>Location:</strong> Nagercoil, Tamil Nadu, India
+            <strong>Location:</strong> Nagercoil, Tamil Nadu, India
           </Typography>
         </Stack>
       </Paper>

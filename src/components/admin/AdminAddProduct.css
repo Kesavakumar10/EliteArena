@@ -1,0 +1,79 @@
+.admin-add-product-page {
+  min-height: 100vh;
+  padding: 24px 0;
+  background: #fff;
+}
+
+.admin-add-product {
+  width: min(calc(100% - 32px), 460px);
+  margin: 0 auto;
+  padding: clamp(22px, 5vw, 34px);
+  background: #fff;
+  border: 1px solid var(--brand-line);
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(130, 13, 154, 0.22);
+  border-top: 5px solid #00b894;
+}
+
+.admin-add-product__header {
+  margin-bottom: 20px;
+}
+
+.admin-add-product__header h2 {
+  margin-top: 0;
+  margin-bottom: 6px;
+  font-size: clamp(1.5rem, 5vw, 2rem);
+}
+
+.admin-add-product__header p {
+  margin: 0;
+  color: gray;
+  font-size: 14px;
+}
+
+.admin-add-product__input {
+  width: 100%;
+  padding: 11px;
+  margin-bottom: 12px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  outline: none;
+  background: #fff;
+}
+
+.admin-add-product__input:focus {
+  border-color: #00b894;
+  box-shadow: 0 0 0 3px rgba(0, 184, 148, 0.16);
+}
+
+.admin-add-product__preview-wrap {
+  padding: 10px;
+  margin: 0 0 12px;
+  border: 1px dashed #ccc;
+  border-radius: 6px;
+  background: #fafafa;
+}
+
+.admin-add-product__preview {
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+  border-radius: 6px;
+  display: block;
+}
+
+.admin-add-product__button {
+  padding: 12px;
+  width: 100%;
+  background: var(--brand-success);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.admin-add-product__button:hover {
+  background: #008f68;
+}

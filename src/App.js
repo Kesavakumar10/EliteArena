@@ -36,6 +36,7 @@ return (
     />
     {/* <Route path="/" element={<Login/>} /> */}
     <Route path="/products" element={<Content />} />
+    <Route path="/contact" element={<Content />} />
     <Route path="/my-orders" element={<MyOrders />} />
 </Routes>
 );

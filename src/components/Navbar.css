@@ -1,0 +1,10 @@
+.navbar-cart-count {
+  margin-left: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.MuiMenu-paper {
+  min-width: 190px;
+}

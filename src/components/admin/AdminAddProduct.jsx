@@ -1,24 +1,7 @@
 import { useState } from "react";
 import API from "../../utils/api";
 import { useNavigate } from "react-router-dom";
-
-const inputStyle = {
-  width: "100%",
-  padding: "8px",
-  marginBottom: "10px",
-  borderRadius: "5px",
-  border: "1px solid #ccc"
-};
-
-const btnStyle = {
-  padding: "10px",
-  width: "100%",
-  background: "#00b894",
-  color: "#fff",
-  border: "none",
-  borderRadius: "5px",
-  cursor: "pointer"
-};
+import "./AdminAddProduct.css";
 
 export default function AdminAddProduct() {
   const [form, setForm] = useState({
@@ -56,77 +39,78 @@ export default function AdminAddProduct() {
   };
 
   return (
-  <div style={{ padding: 30, maxWidth: 400 }}>
-    <h2>Add Product (Admin)</h2>
+  <div className="admin-add-product-page">
+    <div className="admin-add-product">
+      <div className="admin-add-product__header">
+        <h2>Add Product</h2>
+        <p>Fill the product details and publish it to the store.</p>
+      </div>
 
-    <input
-      name="title"
-      value={form.title}
-      placeholder="Product Title"
-      onChange={handle}
-      style={inputStyle}
-    />
-
-    <input
-      name="price"
-      value={form.price}
-      type="number"
-      placeholder="Price"
-      onChange={handle}
-      style={inputStyle}
-    />
-
-    <input
-      name="image"
-      value={form.image}
-      placeholder="Paste Image URL"
-      onChange={handle}
-      style={inputStyle}
-    />
-
-    {/* IMAGE PREVIEW */}
-    {form.image && (
-      <img
-        src={form.image}
-        alt="preview"
-        style={{
-          width: "100%",
-          height: 150,
-          objectFit: "cover",
-          marginTop: 10,
-          borderRadius: 6
-        }}
+      <input
+        name="title"
+        value={form.title}
+        placeholder="Product Title"
+        onChange={handle}
+        className="admin-add-product__input"
       />
-    )}
 
-    <select
-      name="category"
-      value={form.category}
-      onChange={handle}
-      style={inputStyle}
-    >
-      <option value="">Select Category</option>
-      <option value="Keyboard">Keyboard</option>
-      <option value="Mouse">Mouse</option>
-      <option value="Headset">Headset</option>
-      <option value="Chair">Chair</option>
-      <option value="Controller">Controller</option>
-      <option value="Mousepad">MousePad</option>
-      <option value="CPU">CPU</option>
-      <option value="Monitor">Monitor</option>
-    </select>
-    <input
-      name="stock"
-      value={form.stock}
-      type="number"
-      placeholder="Stock"
-      onChange={handle}
-      style={inputStyle}
-    />
+      <input
+        name="price"
+        value={form.price}
+        type="number"
+        placeholder="Price"
+        onChange={handle}
+        className="admin-add-product__input"
+      />
 
-    <button onClick={submit} style={btnStyle}>
-      Add Product
-    </button>
+      <input
+        name="image"
+        value={form.image}
+        placeholder="Paste Image URL"
+        onChange={handle}
+        className="admin-add-product__input"
+      />
+
+      {form.image && (
+        <div className="admin-add-product__preview-wrap">
+          <img
+            src={form.image}
+            alt="preview"
+            className="admin-add-product__preview"
+          />
+        </div>
+      )}
+
+      <select
+        name="category"
+        value={form.category}
+        onChange={handle}
+        className="admin-add-product__input"
+      >
+        <option value="">Select Category</option>
+        <option value="Keyboard">Keyboard</option>
+        <option value="Mouse">Mouse</option>
+        <option value="Headset">Headset</option>
+        <option value="Chair">Chair</option>
+        <option value="Controller">Controller</option>
+        <option value="Mousepad">MousePad</option>
+        <option value="CPU">CPU</option>
+        <option value="Monitor">Monitor</option>
+      </select>
+
+      <input
+        name="stock"
+        value={form.stock}
+        type="number"
+        placeholder="Stock"
+        onChange={handle}
+        className="admin-add-product__input"
+      />
+
+      <button onClick={submit} className="admin-add-product__button">
+        Add Product
+      </button>
+    </div>
   </div>
 );
 }

@@ -1,0 +1,27 @@
+.admin-dashboard {
+  padding: clamp(20px, 5vw, 40px);
+  min-height: 100vh;
+  background: var(--brand-page);
+}
+
+.admin-dashboard h1 {
+  margin: 0;
+  color: var(--brand-ink);
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+}
+
+.admin-dashboard__button {
+  width: min(100%, 260px);
+  padding: 12px 20px;
+  background: var(--brand-success);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 20px;
+  font-weight: 700;
+}
+
+.admin-dashboard__button:hover {
+  background: #008f68;
+}

@@ -23,10 +23,13 @@ export default function Content() {
   useEffect(() => {
   if (location.pathname === "/products") {
     setPage("Products");
-    setActivePage("Products");  
+    setActivePage("Products");
+  } else if (location.pathname === "/contact") {
+    setPage("Contact");
+    setActivePage("Contact");
   } else {
     setPage("Home");
-    setActivePage("Home");       
+    setActivePage("Home");
   }
 }, [location.pathname]);
 

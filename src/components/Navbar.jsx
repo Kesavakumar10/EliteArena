@@ -1,24 +1,24 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
-import MenuItem from '@mui/material/MenuItem';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { useCart } from '../context/Cart';
-// import { getUserRole } from "../utils/auth";
-import { useLocation, useNavigate } from 'react-router-dom';
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Button from "@mui/material/Button";
+import MenuItem from "@mui/material/MenuItem";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import Badge from "@mui/material/Badge";
+import { useCart } from "../context/Cart";
+import { useLocation, useNavigate } from "react-router-dom";
+import "./Navbar.css";
 
-const pages = ['Home','Products','Contact'];
+const pages = ["Home", "Products", "Contact"];
 
-export default function Navbar({ setPage, activePage, setActivePage, goToProducts, openCart }) {
+export default function Navbar({ setPage, activePage, setActivePage, openCart }) {
   const navigate = useNavigate();
-  // const role = getUserRole();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElSettings, setAnchorElSettings] = React.useState(null);
   const [animateCart, setAnimateCart] = React.useState(false);
@@ -28,185 +28,176 @@ export default function Navbar({ setPage, activePage, setActivePage, goToProduct
   const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
   const isAdminPage = location.pathname.startsWith("/admin");
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  
   const closeNavMenu = () => {
     setAnchorElNav(null);
   };
 
   const logout = () => {
     localStorage.removeItem("token");
-    navigate("/"); 
+    navigate("/");
   };
 
- React.useEffect(() => {
-  if (cart.length > 0) {
-    setAnimateCart(true);
+  const goToPage = (page) => {
+    setPage(page);
+    setActivePage(page);
+    openCart(false);
 
-    const timer = setTimeout(() => {
-      setAnimateCart(false);
-    }, 400); // animation duration
+    if (page === "Products") navigate("/products");
+    if (page === "Contact") navigate("/contact");
+    if (page === "Home") navigate("/");
+  };
 
-    return () => clearTimeout(timer);
-  }
+  React.useEffect(() => {
+    if (cart.length > 0) {
+      setAnimateCart(true);
+      const timer = setTimeout(() => setAnimateCart(false), 400);
+      return () => clearTimeout(timer);
+    }
   }, [cart.length]);
 
+  const cartButton = (
+    <IconButton
+      color="inherit"
+      aria-label="Open cart"
+      onClick={() => openCart(true)}
+      sx={{
+        transform: animateCart ? "scale(1.2)" : "scale(1)",
+        transition: "transform 0.3s ease",
+      }}
+    >
+      <Badge badgeContent={totalItems} color="error">
+        <ShoppingCartIcon />
+      </Badge>
+    </IconButton>
+  );
+
   return (
-    <AppBar position="static" sx={{ backgroundColor: "orange" }}>
+    <AppBar position="sticky" elevation={2} sx={{ backgroundColor: "orange", top: 0 }}>
       <Container maxWidth="xl">
-        <Toolbar sx={{ justifyContent: "space-between" }}>
+        <Toolbar disableGutters sx={{ justifyContent: "space-between", gap: 1, minHeight: { xs: 64, md: 72 } }}>
           <Typography
             variant="h6"
             sx={{
-                fontFamily: "'Alex Brush', cursive",
-                fontWeight: 600,
-                fontSize: "2.3rem",
-                lineHeight: 1,
-                m: 0,
-                color: "white"
-                }}
-            >
+              fontFamily: "'Alex Brush', cursive",
+              fontWeight: 600,
+              fontSize: { xs: "1.85rem", sm: "2.2rem", md: "2.3rem" },
+              lineHeight: 1,
+              m: 0,
+              color: "white",
+              whiteSpace: "nowrap",
+            }}
+          >
             EliteArena
           </Typography>
 
-          {/* Desktop */}
-          <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 2 }}>
-            {pages.map(page => (
+          <Box sx={{ display: { xs: "none", md: "flex" }, gap: 2, alignItems: "center" }}>
+            {pages.map((page) => (
               <Button
                 key={page}
-                onClick={() => {
-                  setPage(page);
-                  setActivePage(page);
-                  openCart(false);
-                }}
+                onClick={() => goToPage(page)}
                 sx={{
-                  color: activePage === page ? "black" : "white",
-                  backgroundColor: activePage === page ? "white" : "transparent",
-                  borderRadius: 2
+                  color: "white",
+                  backgroundColor: activePage === page ? "#ff8c00" : "transparent",
+                  borderRadius: 2,
+                  "&:hover": {
+                    backgroundColor: activePage === page ? "#ff8c00" : "#ffb347",
+                  },
                 }}
               >
                 {page}
-              </Button>            
+              </Button>
             ))}
-            
-            <Button
-              sx={{ color: "white" }}
-              onClick={(e) => setAnchorElSettings(e.currentTarget)}
-            >
-            Settings
+
+            <Button sx={{ color: "white" }} onClick={(e) => setAnchorElSettings(e.currentTarget)}>
+              Settings
             </Button>
 
-            <Menu
-              anchorEl={anchorElSettings}
-              open={Boolean(anchorElSettings)}
-              onClose={() => setAnchorElSettings(null)}
-            >
-            <MenuItem
-              onClick={() => {
-                if (!token) {
-                navigate("/login");
-                } else {
-                navigate("/admin");
-                }
-                setAnchorElSettings(null);
-              }}
-            >
-            Admin
-            </MenuItem>
-
-            {/* LOGOUT – only when logged in */}
-            {token && (
+            <Menu anchorEl={anchorElSettings} open={Boolean(anchorElSettings)} onClose={() => setAnchorElSettings(null)}>
               <MenuItem
                 onClick={() => {
-                  logout();
+                  if (!token) {
+                    navigate("/login");
+                  } else {
+                    navigate("/admin");
+                  }
                   setAnchorElSettings(null);
                 }}
               >
-              Logout
+                Admin
               </MenuItem>
+
+              {token && (
+                <MenuItem
+                  onClick={() => {
+                    logout();
+                    setAnchorElSettings(null);
+                  }}
+                >
+                  Logout
+                </MenuItem>
               )}
             </Menu>
 
-            <Button onClick={() => navigate("/my-orders")} sx={{color: 'white'}}>
-            Orders
+            <Button onClick={() => navigate("/my-orders")} sx={{ color: "white" }}>
+              Orders
             </Button>
 
-            {!isAdminPage && !token && (
-  <IconButton
-    color="inherit"
-    onClick={() => openCart(true)}
-    sx={{
-      transform: animateCart ? "scale(1.3)" : "scale(1)",
-      transition: "transform 0.3s ease"
-    }}
-  >
-    <ShoppingCartIcon />
-    {totalItems > 0 && (
-      <span
-        style={{
-          marginLeft: "6px",
-          fontSize: "14px",
-          fontWeight: "bold",
-          color: "#fff"
-        }}
-      >
-        {totalItems}
-      </span>
-    )}
-  </IconButton>
-)}
-
+            {!isAdminPage && cartButton}
           </Box>
 
-          {/* Mobile */}
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton onClick={handleOpenNavMenu} color="inherit">
+          <Box sx={{ display: { xs: "flex", md: "none" }, alignItems: "center", gap: 0.5 }}>
+            {!isAdminPage && cartButton}
+
+            <IconButton onClick={(event) => setAnchorElNav(event.currentTarget)} color="inherit" aria-label="Open menu">
               <MenuIcon />
             </IconButton>
 
-            <Menu
-  anchorEl={anchorElNav}
-  open={Boolean(anchorElNav)}
-  onClose={closeNavMenu}
->
-  {/* HOME */}
-  <MenuItem
-    onClick={() => {
-      setPage("Home");
-      setActivePage("Home");
-      closeNavMenu();
-    }}
-  >
-    Home
-  </MenuItem>
+            <Menu anchorEl={anchorElNav} open={Boolean(anchorElNav)} onClose={closeNavMenu}>
+              {pages.map((page) => (
+                <MenuItem
+                  key={page}
+                  onClick={() => {
+                    goToPage(page);
+                    closeNavMenu();
+                  }}
+                >
+                  {page}
+                </MenuItem>
+              ))}
 
-  <MenuItem
-  onClick={() => {
-    if (!token) {
-      navigate("/login");
-    } else {
-      navigate("/admin");
-    }
-      closeNavMenu();
-    }}
-  >
-  Admin
-  </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  navigate("/my-orders");
+                  closeNavMenu();
+                }}
+              >
+                Orders
+              </MenuItem>
 
-{token && (
-  <MenuItem
-    onClick={() => {
-      logout();
-      closeNavMenu();
-    }}
-  >
-    Logout
-  </MenuItem>
-)}
+              <MenuItem
+                onClick={() => {
+                  if (!token) {
+                    navigate("/login");
+                  } else {
+                    navigate("/admin");
+                  }
+                  closeNavMenu();
+                }}
+              >
+                Admin
+              </MenuItem>
 
-</Menu>
+              {token && (
+                <MenuItem
+                  onClick={() => {
+                    logout();
+                    closeNavMenu();
+                  }}
+                >
+                  Logout
+                </MenuItem>
+              )}
+            </Menu>
           </Box>
         </Toolbar>
       </Container>

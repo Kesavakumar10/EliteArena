@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import API from '../utils/api';
+import './Protected.css';
 
 
 export default function Protected(){
@@ -23,7 +24,7 @@ load();
 return (
 <div>
 <h2>Protected Page</h2>
-{err && <div style={{ color: 'red' }}>{err}</div>}
+{err && <div className="protected-error">{err}</div>}
 {data ? <pre>{JSON.stringify(data, null, 2)}</pre> : <div>Loading...</div>}
 </div>
 );

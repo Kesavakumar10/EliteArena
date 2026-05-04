@@ -1,3 +1,24 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --brand-orange: orange;
+  --brand-orange-dark: #ff8c00;
+  --brand-ink: #151515;
+  --brand-muted: gray;
+  --brand-surface: #ffffff;
+  --brand-page: #ffffff;
+  --brand-line: #e5e7eb;
+  --brand-success: #00b894;
+  --brand-blue: #4830ff;
+}
+
+html {
+  min-width: 320px;
+  background: var(--brand-page);
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,6 +26,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: var(--brand-page);
+  color: var(--brand-ink);
+  overflow-x: hidden;
 }
 
 code {
@@ -12,3 +36,6 @@ code {
     monospace;
 }
 
+img {
+  max-width: 100%;
+}
